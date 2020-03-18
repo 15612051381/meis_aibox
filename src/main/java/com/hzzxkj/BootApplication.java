@@ -27,7 +27,7 @@ public class BootApplication {
 	public static void main(String[] args) throws Exception {
 		applicationContext = SpringApplication.run(BootApplication.class, args);
 		SpringBeanUtil.setApplicationContext(applicationContext);
-		System.out.println("启动完毕");
+		System.out.println("程序启动完毕");
 		Thread thread  = new Thread(new Runnable() {
 			@Override
 			public void run() {
