@@ -1,0 +1,814 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hzzxkj.dao.ClientInfoMapper">
+  <resultMap id="BaseResultMap" type="com.hzzxkj.models.ClientInfo">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="seq" jdbcType="VARCHAR" property="seq" />
+    <result column="mac" jdbcType="VARCHAR" property="mac" />
+    <result column="is_online" jdbcType="CHAR" property="isOnline" />
+    <result column="last_online" jdbcType="TIMESTAMP" property="lastOnline" />
+    <result column="hospital_id" jdbcType="VARCHAR" property="hospitalId" />
+    <result column="device_id" jdbcType="VARCHAR" property="deviceId" />
+    <result column="last_rtc_sysdate" jdbcType="TIMESTAMP" property="lastRtcSysdate" />
+    <result column="last_rtc_date" jdbcType="BIGINT" property="lastRtcDate" />
+    <result column="last_rtc_deviate" jdbcType="BIGINT" property="lastRtcDeviate" />
+    <result column="log_remainder" jdbcType="INTEGER" property="logRemainder" />
+    <result column="last_update_log_date" jdbcType="TIMESTAMP" property="lastUpdateLogDate" />
+    <result column="bl_version" jdbcType="VARCHAR" property="blVersion" />
+    <result column="sw_version" jdbcType="VARCHAR" property="swVersion" />
+    <result column="hw_version" jdbcType="VARCHAR" property="hwVersion" />
+    <result column="setup_date" jdbcType="TIMESTAMP" property="setupDate" />
+    <result column="use_date" jdbcType="TIMESTAMP" property="useDate" />
+    <result column="client_type" jdbcType="VARCHAR" property="clientType" />
+    <result column="is_fault" jdbcType="CHAR" property="isFault" />
+    <result column="is_open" jdbcType="CHAR" property="isOpen" />
+    <result column="is_work" jdbcType="CHAR" property="isWork" />
+    <result column="server_ip" jdbcType="VARCHAR" property="serverIp" />
+    <result column="server_port" jdbcType="INTEGER" property="serverPort" />
+    <result column="wifi_ssid" jdbcType="VARCHAR" property="wifiSsid" />
+    <result column="wifi_password" jdbcType="VARCHAR" property="wifiPassword" />
+    <result column="client_ip" jdbcType="VARCHAR" property="clientIp" />
+    <result column="ap_mac" jdbcType="VARCHAR" property="apMac" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="del_flag" jdbcType="CHAR" property="delFlag" />
+    <result column="a" jdbcType="DECIMAL" property="a" />
+    <result column="b" jdbcType="DECIMAL" property="b" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, seq, mac, is_online, last_online, hospital_id, device_id, last_rtc_sysdate, last_rtc_date, 
+    last_rtc_deviate, log_remainder, last_update_log_date, bl_version, sw_version, hw_version, 
+    setup_date, use_date, client_type, is_fault, is_open, is_work, server_ip, server_port, 
+    wifi_ssid, wifi_password, client_ip, ap_mac, create_by, create_date, update_by, update_date, 
+    remarks, del_flag, a, b
+  </sql>
+  <select id="selectByExample" parameterType="com.hzzxkj.models.ClientInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from client_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from client_info
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="existsClinetInfo" parameterType="com.hzzxkj.models.ClientInfo" resultType="java.lang.Integer">
+    select count(*)
+    from client_info
+    where hospital_id = #{hospitalId,jdbcType=VARCHAR}
+    and   device_id = #{deviceId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from client_info
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hzzxkj.models.ClientInfo">
+    insert into client_info (id, seq, mac, 
+      is_online, last_online, hospital_id, 
+      device_id, last_rtc_sysdate, last_rtc_date, 
+      last_rtc_deviate, log_remainder, last_update_log_date, 
+      bl_version, sw_version, hw_version, 
+      setup_date, use_date, client_type, 
+      is_fault, is_open, is_work, server_ip, 
+      server_port, wifi_ssid, wifi_password, 
+      client_ip, ap_mac, create_by, 
+      create_date, update_by, update_date, 
+      remarks, del_flag, a, b
+      )
+    values (#{id,jdbcType=VARCHAR}, #{seq,jdbcType=VARCHAR}, #{mac,jdbcType=VARCHAR}, 
+      #{isOnline,jdbcType=CHAR}, #{lastOnline,jdbcType=TIMESTAMP}, #{hospitalId,jdbcType=VARCHAR}, 
+      #{deviceId,jdbcType=VARCHAR}, #{lastRtcSysdate,jdbcType=TIMESTAMP}, #{lastRtcDate,jdbcType=BIGINT}, 
+      #{lastRtcDeviate,jdbcType=BIGINT}, #{logRemainder,jdbcType=INTEGER}, #{lastUpdateLogDate,jdbcType=TIMESTAMP}, 
+      #{blVersion,jdbcType=VARCHAR}, #{swVersion,jdbcType=VARCHAR}, #{hwVersion,jdbcType=VARCHAR}, 
+      #{setupDate,jdbcType=TIMESTAMP}, #{useDate,jdbcType=TIMESTAMP}, #{clientType,jdbcType=VARCHAR}, 
+      #{isFault,jdbcType=CHAR}, #{isOpen,jdbcType=CHAR}, #{isWork,jdbcType=CHAR}, #{serverIp,jdbcType=VARCHAR}, 
+      #{serverPort,jdbcType=INTEGER}, #{wifiSsid,jdbcType=VARCHAR}, #{wifiPassword,jdbcType=VARCHAR}, 
+      #{clientIp,jdbcType=VARCHAR}, #{apMac,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, 
+      #{remarks,jdbcType=VARCHAR}, #{delFlag,jdbcType=CHAR}, #{a,jdbcType=DECIMAL}, #{b,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hzzxkj.models.ClientInfo">
+    insert into client_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="seq != null">
+        seq,
+      </if>
+      <if test="mac != null">
+        mac,
+      </if>
+      <if test="isOnline != null">
+        is_online,
+      </if>
+      <if test="lastOnline != null">
+        last_online,
+      </if>
+      <if test="hospitalId != null">
+        hospital_id,
+      </if>
+      <if test="deviceId != null">
+        device_id,
+      </if>
+      <if test="lastRtcSysdate != null">
+        last_rtc_sysdate,
+      </if>
+      <if test="lastRtcDate != null">
+        last_rtc_date,
+      </if>
+      <if test="lastRtcDeviate != null">
+        last_rtc_deviate,
+      </if>
+      <if test="logRemainder != null">
+        log_remainder,
+      </if>
+      <if test="lastUpdateLogDate != null">
+        last_update_log_date,
+      </if>
+      <if test="blVersion != null">
+        bl_version,
+      </if>
+      <if test="swVersion != null">
+        sw_version,
+      </if>
+      <if test="hwVersion != null">
+        hw_version,
+      </if>
+      <if test="setupDate != null">
+        setup_date,
+      </if>
+      <if test="useDate != null">
+        use_date,
+      </if>
+      <if test="clientType != null">
+        client_type,
+      </if>
+      <if test="isFault != null">
+        is_fault,
+      </if>
+      <if test="isOpen != null">
+        is_open,
+      </if>
+      <if test="isWork != null">
+        is_work,
+      </if>
+      <if test="serverIp != null">
+        server_ip,
+      </if>
+      <if test="serverPort != null">
+        server_port,
+      </if>
+      <if test="wifiSsid != null">
+        wifi_ssid,
+      </if>
+      <if test="wifiPassword != null">
+        wifi_password,
+      </if>
+      <if test="clientIp != null">
+        client_ip,
+      </if>
+      <if test="apMac != null">
+        ap_mac,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+      <if test="a != null">
+        a,
+      </if>
+      <if test="b != null">
+        b,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="seq != null">
+        #{seq,jdbcType=VARCHAR},
+      </if>
+      <if test="mac != null">
+        #{mac,jdbcType=VARCHAR},
+      </if>
+      <if test="isOnline != null">
+        #{isOnline,jdbcType=CHAR},
+      </if>
+      <if test="lastOnline != null">
+        #{lastOnline,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hospitalId != null">
+        #{hospitalId,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null">
+        #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="lastRtcSysdate != null">
+        #{lastRtcSysdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastRtcDate != null">
+        #{lastRtcDate,jdbcType=BIGINT},
+      </if>
+      <if test="lastRtcDeviate != null">
+        #{lastRtcDeviate,jdbcType=BIGINT},
+      </if>
+      <if test="logRemainder != null">
+        #{logRemainder,jdbcType=INTEGER},
+      </if>
+      <if test="lastUpdateLogDate != null">
+        #{lastUpdateLogDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="blVersion != null">
+        #{blVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="swVersion != null">
+        #{swVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="hwVersion != null">
+        #{hwVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="setupDate != null">
+        #{setupDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="useDate != null">
+        #{useDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="clientType != null">
+        #{clientType,jdbcType=VARCHAR},
+      </if>
+      <if test="isFault != null">
+        #{isFault,jdbcType=CHAR},
+      </if>
+      <if test="isOpen != null">
+        #{isOpen,jdbcType=CHAR},
+      </if>
+      <if test="isWork != null">
+        #{isWork,jdbcType=CHAR},
+      </if>
+      <if test="serverIp != null">
+        #{serverIp,jdbcType=VARCHAR},
+      </if>
+      <if test="serverPort != null">
+        #{serverPort,jdbcType=INTEGER},
+      </if>
+      <if test="wifiSsid != null">
+        #{wifiSsid,jdbcType=VARCHAR},
+      </if>
+      <if test="wifiPassword != null">
+        #{wifiPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="clientIp != null">
+        #{clientIp,jdbcType=VARCHAR},
+      </if>
+      <if test="apMac != null">
+        #{apMac,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="a != null">
+        #{a,jdbcType=DECIMAL},
+      </if>
+      <if test="b != null">
+        #{b,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hzzxkj.models.ClientInfoExample" resultType="java.lang.Long">
+    select count(*) from client_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update client_info
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.seq != null">
+        seq = #{record.seq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mac != null">
+        mac = #{record.mac,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isOnline != null">
+        is_online = #{record.isOnline,jdbcType=CHAR},
+      </if>
+      <if test="record.lastOnline != null">
+        last_online = #{record.lastOnline,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.hospitalId != null">
+        hospital_id = #{record.hospitalId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceId != null">
+        device_id = #{record.deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastRtcSysdate != null">
+        last_rtc_sysdate = #{record.lastRtcSysdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastRtcDate != null">
+        last_rtc_date = #{record.lastRtcDate,jdbcType=BIGINT},
+      </if>
+      <if test="record.lastRtcDeviate != null">
+        last_rtc_deviate = #{record.lastRtcDeviate,jdbcType=BIGINT},
+      </if>
+      <if test="record.logRemainder != null">
+        log_remainder = #{record.logRemainder,jdbcType=INTEGER},
+      </if>
+      <if test="record.lastUpdateLogDate != null">
+        last_update_log_date = #{record.lastUpdateLogDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.blVersion != null">
+        bl_version = #{record.blVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.swVersion != null">
+        sw_version = #{record.swVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hwVersion != null">
+        hw_version = #{record.hwVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.setupDate != null">
+        setup_date = #{record.setupDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.useDate != null">
+        use_date = #{record.useDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.clientType != null">
+        client_type = #{record.clientType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isFault != null">
+        is_fault = #{record.isFault,jdbcType=CHAR},
+      </if>
+      <if test="record.isOpen != null">
+        is_open = #{record.isOpen,jdbcType=CHAR},
+      </if>
+      <if test="record.isWork != null">
+        is_work = #{record.isWork,jdbcType=CHAR},
+      </if>
+      <if test="record.serverIp != null">
+        server_ip = #{record.serverIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serverPort != null">
+        server_port = #{record.serverPort,jdbcType=INTEGER},
+      </if>
+      <if test="record.wifiSsid != null">
+        wifi_ssid = #{record.wifiSsid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wifiPassword != null">
+        wifi_password = #{record.wifiPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.clientIp != null">
+        client_ip = #{record.clientIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.apMac != null">
+        ap_mac = #{record.apMac,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createBy != null">
+        create_by = #{record.createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null">
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateBy != null">
+        update_by = #{record.updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateDate != null">
+        update_date = #{record.updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remarks != null">
+        remarks = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.delFlag != null">
+        del_flag = #{record.delFlag,jdbcType=CHAR},
+      </if>
+      <if test="record.a != null">
+        a = #{record.a,jdbcType=DECIMAL},
+      </if>
+      <if test="record.b != null">
+        b = #{record.b,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update client_info
+    set id = #{record.id,jdbcType=VARCHAR},
+      seq = #{record.seq,jdbcType=VARCHAR},
+      mac = #{record.mac,jdbcType=VARCHAR},
+      is_online = #{record.isOnline,jdbcType=CHAR},
+      last_online = #{record.lastOnline,jdbcType=TIMESTAMP},
+      hospital_id = #{record.hospitalId,jdbcType=VARCHAR},
+      device_id = #{record.deviceId,jdbcType=VARCHAR},
+      last_rtc_sysdate = #{record.lastRtcSysdate,jdbcType=TIMESTAMP},
+      last_rtc_date = #{record.lastRtcDate,jdbcType=BIGINT},
+      last_rtc_deviate = #{record.lastRtcDeviate,jdbcType=BIGINT},
+      log_remainder = #{record.logRemainder,jdbcType=INTEGER},
+      last_update_log_date = #{record.lastUpdateLogDate,jdbcType=TIMESTAMP},
+      bl_version = #{record.blVersion,jdbcType=VARCHAR},
+      sw_version = #{record.swVersion,jdbcType=VARCHAR},
+      hw_version = #{record.hwVersion,jdbcType=VARCHAR},
+      setup_date = #{record.setupDate,jdbcType=TIMESTAMP},
+      use_date = #{record.useDate,jdbcType=TIMESTAMP},
+      client_type = #{record.clientType,jdbcType=VARCHAR},
+      is_fault = #{record.isFault,jdbcType=CHAR},
+      is_open = #{record.isOpen,jdbcType=CHAR},
+      is_work = #{record.isWork,jdbcType=CHAR},
+      server_ip = #{record.serverIp,jdbcType=VARCHAR},
+      server_port = #{record.serverPort,jdbcType=INTEGER},
+      wifi_ssid = #{record.wifiSsid,jdbcType=VARCHAR},
+      wifi_password = #{record.wifiPassword,jdbcType=VARCHAR},
+      client_ip = #{record.clientIp,jdbcType=VARCHAR},
+      ap_mac = #{record.apMac,jdbcType=VARCHAR},
+      create_by = #{record.createBy,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      update_by = #{record.updateBy,jdbcType=VARCHAR},
+      update_date = #{record.updateDate,jdbcType=TIMESTAMP},
+      remarks = #{record.remarks,jdbcType=VARCHAR},
+      del_flag = #{record.delFlag,jdbcType=CHAR},
+      a = #{record.a,jdbcType=DECIMAL},
+      b = #{record.b,jdbcType=DECIMAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hzzxkj.models.ClientInfo">
+    update client_info
+    <set>
+      <if test="seq != null">
+        seq = #{seq,jdbcType=VARCHAR},
+      </if>
+      <if test="mac != null">
+        mac = #{mac,jdbcType=VARCHAR},
+      </if>
+      <if test="isOnline != null">
+        is_online = #{isOnline,jdbcType=CHAR},
+      </if>
+      <if test="lastOnline != null">
+        last_online = #{lastOnline,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hospitalId != null">
+        hospital_id = #{hospitalId,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null">
+        device_id = #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="lastRtcSysdate != null">
+        last_rtc_sysdate = #{lastRtcSysdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastRtcDate != null">
+        last_rtc_date = #{lastRtcDate,jdbcType=BIGINT},
+      </if>
+      <if test="lastRtcDeviate != null">
+        last_rtc_deviate = #{lastRtcDeviate,jdbcType=BIGINT},
+      </if>
+      <if test="logRemainder != null">
+        log_remainder = #{logRemainder,jdbcType=INTEGER},
+      </if>
+      <if test="lastUpdateLogDate != null">
+        last_update_log_date = #{lastUpdateLogDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="blVersion != null">
+        bl_version = #{blVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="swVersion != null">
+        sw_version = #{swVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="hwVersion != null">
+        hw_version = #{hwVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="setupDate != null">
+        setup_date = #{setupDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="useDate != null">
+        use_date = #{useDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="clientType != null">
+        client_type = #{clientType,jdbcType=VARCHAR},
+      </if>
+      <if test="isFault != null">
+        is_fault = #{isFault,jdbcType=CHAR},
+      </if>
+      <if test="isOpen != null">
+        is_open = #{isOpen,jdbcType=CHAR},
+      </if>
+      <if test="isWork != null">
+        is_work = #{isWork,jdbcType=CHAR},
+      </if>
+      <if test="serverIp != null">
+        server_ip = #{serverIp,jdbcType=VARCHAR},
+      </if>
+      <if test="serverPort != null">
+        server_port = #{serverPort,jdbcType=INTEGER},
+      </if>
+      <if test="wifiSsid != null">
+        wifi_ssid = #{wifiSsid,jdbcType=VARCHAR},
+      </if>
+      <if test="wifiPassword != null">
+        wifi_password = #{wifiPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="clientIp != null">
+        client_ip = #{clientIp,jdbcType=VARCHAR},
+      </if>
+      <if test="apMac != null">
+        ap_mac = #{apMac,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="a != null">
+        a = #{a,jdbcType=DECIMAL},
+      </if>
+      <if test="b != null">
+        b = #{b,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hzzxkj.models.ClientInfo">
+    update client_info
+    set seq = #{seq,jdbcType=VARCHAR},
+      mac = #{mac,jdbcType=VARCHAR},
+      is_online = #{isOnline,jdbcType=CHAR},
+      last_online = #{lastOnline,jdbcType=TIMESTAMP},
+      hospital_id = #{hospitalId,jdbcType=VARCHAR},
+      device_id = #{deviceId,jdbcType=VARCHAR},
+      last_rtc_sysdate = #{lastRtcSysdate,jdbcType=TIMESTAMP},
+      last_rtc_date = #{lastRtcDate,jdbcType=BIGINT},
+      last_rtc_deviate = #{lastRtcDeviate,jdbcType=BIGINT},
+      log_remainder = #{logRemainder,jdbcType=INTEGER},
+      last_update_log_date = #{lastUpdateLogDate,jdbcType=TIMESTAMP},
+      bl_version = #{blVersion,jdbcType=VARCHAR},
+      sw_version = #{swVersion,jdbcType=VARCHAR},
+      hw_version = #{hwVersion,jdbcType=VARCHAR},
+      setup_date = #{setupDate,jdbcType=TIMESTAMP},
+      use_date = #{useDate,jdbcType=TIMESTAMP},
+      client_type = #{clientType,jdbcType=VARCHAR},
+      is_fault = #{isFault,jdbcType=CHAR},
+      is_open = #{isOpen,jdbcType=CHAR},
+      is_work = #{isWork,jdbcType=CHAR},
+      server_ip = #{serverIp,jdbcType=VARCHAR},
+      server_port = #{serverPort,jdbcType=INTEGER},
+      wifi_ssid = #{wifiSsid,jdbcType=VARCHAR},
+      wifi_password = #{wifiPassword,jdbcType=VARCHAR},
+      client_ip = #{clientIp,jdbcType=VARCHAR},
+      ap_mac = #{apMac,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      del_flag = #{delFlag,jdbcType=CHAR},
+      a = #{a,jdbcType=DECIMAL},
+      b = #{b,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateByhospitalanddevice" parameterType="com.hzzxkj.models.ClientInfo">
+    update client_info
+    <set>
+      <if test="seq != null">
+        seq = #{seq,jdbcType=VARCHAR},
+      </if>
+      <if test="mac != null">
+        mac = #{mac,jdbcType=VARCHAR},
+      </if>
+      <if test="isOnline != null">
+        is_online = #{isOnline,jdbcType=CHAR},
+      </if>
+      <if test="lastOnline != null">
+        last_online = #{lastOnline,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hospitalId != null">
+        hospital_id = #{hospitalId,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null">
+        device_id = #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="lastRtcSysdate != null">
+        last_rtc_sysdate = #{lastRtcSysdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastRtcDate != null">
+        last_rtc_date = #{lastRtcDate,jdbcType=BIGINT},
+      </if>
+      <if test="lastRtcDeviate != null">
+        last_rtc_deviate = #{lastRtcDeviate,jdbcType=BIGINT},
+      </if>
+      <if test="logRemainder != null">
+        log_remainder = #{logRemainder,jdbcType=INTEGER},
+      </if>
+      <if test="lastUpdateLogDate != null">
+        last_update_log_date = #{lastUpdateLogDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="blVersion != null">
+        bl_version = #{blVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="swVersion != null">
+        sw_version = #{swVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="hwVersion != null">
+        hw_version = #{hwVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="setupDate != null">
+        setup_date = #{setupDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="useDate != null">
+        use_date = #{useDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="clientType != null">
+        client_type = #{clientType,jdbcType=VARCHAR},
+      </if>
+      <if test="isFault != null">
+        is_fault = #{isFault,jdbcType=CHAR},
+      </if>
+      <if test="isOpen != null">
+        is_open = #{isOpen,jdbcType=CHAR},
+      </if>
+      <if test="isWork != null">
+        is_work = #{isWork,jdbcType=CHAR},
+      </if>
+      <if test="serverIp != null">
+        server_ip = #{serverIp,jdbcType=VARCHAR},
+      </if>
+      <if test="serverPort != null">
+        server_port = #{serverPort,jdbcType=INTEGER},
+      </if>
+      <if test="wifiSsid != null">
+        wifi_ssid = #{wifiSsid,jdbcType=VARCHAR},
+      </if>
+      <if test="wifiPassword != null">
+        wifi_password = #{wifiPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="clientIp != null">
+        client_ip = #{clientIp,jdbcType=VARCHAR},
+      </if>
+      <if test="apMac != null">
+        ap_mac = #{apMac,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="a != null">
+        a = #{a,jdbcType=DECIMAL},
+      </if>
+      <if test="b != null">
+        b = #{b,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where hospital_id = #{hospitalId,jdbcType=VARCHAR} 
+    and  device_id = #{deviceId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectByExampleWithRowbounds" parameterType="com.hzzxkj.models.ClientInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from client_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  
+
+</mapper>

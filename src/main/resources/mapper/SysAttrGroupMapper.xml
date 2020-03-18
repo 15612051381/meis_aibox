@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hzzxkj.dao.SysAttrGroupMapper">
+  <resultMap id="BaseResultMap" type="com.hzzxkj.models.SysAttrGroup">
+    <id column="ag_id" jdbcType="INTEGER" property="agId" />
+    <result column="ag_device_id" jdbcType="INTEGER" property="agDeviceId" />
+    <result column="ag_hospital_id" jdbcType="INTEGER" property="agHospitalId" />
+    <result column="ag_model_id" jdbcType="INTEGER" property="agModelId" />
+    <result column="ag_groupNo" jdbcType="VARCHAR" property="agGroupno" />
+    <result column="ag_groupTitle" jdbcType="VARCHAR" property="agGrouptitle" />
+    <result column="ag_frequency" jdbcType="INTEGER" property="agFrequency" />
+    <result column="ag_sortBy" jdbcType="INTEGER" property="agSortby" />
+    <result column="ag_delFlag" jdbcType="CHAR" property="agDelflag" />
+    <result column="ag_createBy" jdbcType="VARCHAR" property="agCreateby" />
+    <result column="ag_create_dt" jdbcType="TIMESTAMP" property="agCreateDt" />
+    <result column="ag_updateBy" jdbcType="VARCHAR" property="agUpdateby" />
+    <result column="ag_update_dt" jdbcType="TIMESTAMP" property="agUpdateDt" />
+    <result column="ag_remarks" jdbcType="VARCHAR" property="agRemarks" />
+    <result column="ag_showType" jdbcType="CHAR" property="agShowtype" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ag_id, ag_device_id, ag_hospital_id, ag_model_id, ag_groupNo, ag_groupTitle, ag_frequency, 
+    ag_sortBy, ag_delFlag, ag_createBy, ag_create_dt, ag_updateBy, ag_update_dt, ag_remarks, 
+    ag_showType
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_attr_group
+    where ag_id = #{agId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_attr_group
+    where ag_id = #{agId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hzzxkj.models.SysAttrGroup">
+    insert into sys_attr_group (ag_id, ag_device_id, ag_hospital_id, 
+      ag_model_id, ag_groupNo, ag_groupTitle, 
+      ag_frequency, ag_sortBy, ag_delFlag, 
+      ag_createBy, ag_create_dt, ag_updateBy, 
+      ag_update_dt, ag_remarks, ag_showType
+      )
+    values (#{agId,jdbcType=INTEGER}, #{agDeviceId,jdbcType=INTEGER}, #{agHospitalId,jdbcType=INTEGER}, 
+      #{agModelId,jdbcType=INTEGER}, #{agGroupno,jdbcType=VARCHAR}, #{agGrouptitle,jdbcType=VARCHAR}, 
+      #{agFrequency,jdbcType=INTEGER}, #{agSortby,jdbcType=INTEGER}, #{agDelflag,jdbcType=CHAR}, 
+      #{agCreateby,jdbcType=VARCHAR}, #{agCreateDt,jdbcType=TIMESTAMP}, #{agUpdateby,jdbcType=VARCHAR}, 
+      #{agUpdateDt,jdbcType=TIMESTAMP}, #{agRemarks,jdbcType=VARCHAR}, #{agShowtype,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hzzxkj.models.SysAttrGroup">
+    insert into sys_attr_group
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="agId != null">
+        ag_id,
+      </if>
+      <if test="agDeviceId != null">
+        ag_device_id,
+      </if>
+      <if test="agHospitalId != null">
+        ag_hospital_id,
+      </if>
+      <if test="agModelId != null">
+        ag_model_id,
+      </if>
+      <if test="agGroupno != null">
+        ag_groupNo,
+      </if>
+      <if test="agGrouptitle != null">
+        ag_groupTitle,
+      </if>
+      <if test="agFrequency != null">
+        ag_frequency,
+      </if>
+      <if test="agSortby != null">
+        ag_sortBy,
+      </if>
+      <if test="agDelflag != null">
+        ag_delFlag,
+      </if>
+      <if test="agCreateby != null">
+        ag_createBy,
+      </if>
+      <if test="agCreateDt != null">
+        ag_create_dt,
+      </if>
+      <if test="agUpdateby != null">
+        ag_updateBy,
+      </if>
+      <if test="agUpdateDt != null">
+        ag_update_dt,
+      </if>
+      <if test="agRemarks != null">
+        ag_remarks,
+      </if>
+      <if test="agShowtype != null">
+        ag_showType,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="agId != null">
+        #{agId,jdbcType=INTEGER},
+      </if>
+      <if test="agDeviceId != null">
+        #{agDeviceId,jdbcType=INTEGER},
+      </if>
+      <if test="agHospitalId != null">
+        #{agHospitalId,jdbcType=INTEGER},
+      </if>
+      <if test="agModelId != null">
+        #{agModelId,jdbcType=INTEGER},
+      </if>
+      <if test="agGroupno != null">
+        #{agGroupno,jdbcType=VARCHAR},
+      </if>
+      <if test="agGrouptitle != null">
+        #{agGrouptitle,jdbcType=VARCHAR},
+      </if>
+      <if test="agFrequency != null">
+        #{agFrequency,jdbcType=INTEGER},
+      </if>
+      <if test="agSortby != null">
+        #{agSortby,jdbcType=INTEGER},
+      </if>
+      <if test="agDelflag != null">
+        #{agDelflag,jdbcType=CHAR},
+      </if>
+      <if test="agCreateby != null">
+        #{agCreateby,jdbcType=VARCHAR},
+      </if>
+      <if test="agCreateDt != null">
+        #{agCreateDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="agUpdateby != null">
+        #{agUpdateby,jdbcType=VARCHAR},
+      </if>
+      <if test="agUpdateDt != null">
+        #{agUpdateDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="agRemarks != null">
+        #{agRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="agShowtype != null">
+        #{agShowtype,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hzzxkj.models.SysAttrGroup">
+    update sys_attr_group
+    <set>
+      <if test="agDeviceId != null">
+        ag_device_id = #{agDeviceId,jdbcType=INTEGER},
+      </if>
+      <if test="agHospitalId != null">
+        ag_hospital_id = #{agHospitalId,jdbcType=INTEGER},
+      </if>
+      <if test="agModelId != null">
+        ag_model_id = #{agModelId,jdbcType=INTEGER},
+      </if>
+      <if test="agGroupno != null">
+        ag_groupNo = #{agGroupno,jdbcType=VARCHAR},
+      </if>
+      <if test="agGrouptitle != null">
+        ag_groupTitle = #{agGrouptitle,jdbcType=VARCHAR},
+      </if>
+      <if test="agFrequency != null">
+        ag_frequency = #{agFrequency,jdbcType=INTEGER},
+      </if>
+      <if test="agSortby != null">
+        ag_sortBy = #{agSortby,jdbcType=INTEGER},
+      </if>
+      <if test="agDelflag != null">
+        ag_delFlag = #{agDelflag,jdbcType=CHAR},
+      </if>
+      <if test="agCreateby != null">
+        ag_createBy = #{agCreateby,jdbcType=VARCHAR},
+      </if>
+      <if test="agCreateDt != null">
+        ag_create_dt = #{agCreateDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="agUpdateby != null">
+        ag_updateBy = #{agUpdateby,jdbcType=VARCHAR},
+      </if>
+      <if test="agUpdateDt != null">
+        ag_update_dt = #{agUpdateDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="agRemarks != null">
+        ag_remarks = #{agRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="agShowtype != null">
+        ag_showType = #{agShowtype,jdbcType=CHAR},
+      </if>
+    </set>
+    where ag_id = #{agId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hzzxkj.models.SysAttrGroup">
+    update sys_attr_group
+    set ag_device_id = #{agDeviceId,jdbcType=INTEGER},
+      ag_hospital_id = #{agHospitalId,jdbcType=INTEGER},
+      ag_model_id = #{agModelId,jdbcType=INTEGER},
+      ag_groupNo = #{agGroupno,jdbcType=VARCHAR},
+      ag_groupTitle = #{agGrouptitle,jdbcType=VARCHAR},
+      ag_frequency = #{agFrequency,jdbcType=INTEGER},
+      ag_sortBy = #{agSortby,jdbcType=INTEGER},
+      ag_delFlag = #{agDelflag,jdbcType=CHAR},
+      ag_createBy = #{agCreateby,jdbcType=VARCHAR},
+      ag_create_dt = #{agCreateDt,jdbcType=TIMESTAMP},
+      ag_updateBy = #{agUpdateby,jdbcType=VARCHAR},
+      ag_update_dt = #{agUpdateDt,jdbcType=TIMESTAMP},
+      ag_remarks = #{agRemarks,jdbcType=VARCHAR},
+      ag_showType = #{agShowtype,jdbcType=CHAR}
+    where ag_id = #{agId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectBySysAttrGroupWhithDeviceID" parameterType="com.hzzxkj.models.SysAttrGroup" resultMap="BaseResultMap">
+        select
+		ag.ag_groupNo,ag.ag_frequency,group_concat(ac_attr_id,'') sysattrids from sys_attr_group ag,
+		sys_attr_config ac
+		where ag.ag_id=ac.ac_ag_id and
+		ag.ag_delFlag =0 and ac.ac_delFlag = 0 and
+		ag.ag_device_id=11029 group by ag.ag_groupNo
+	</select>
+
+</mapper>

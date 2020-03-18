@@ -1,0 +1,11 @@
+package droolRule;
+//global com.hzzx.entity.StartEntity startentity;
+//import com.hzzx.entity.StartEntity;
+
+dialect "java"
+
+rule "病人是否能行走1"
+    when
+
+    then
+end

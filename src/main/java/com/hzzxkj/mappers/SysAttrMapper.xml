@@ -1,0 +1,651 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hzzxkj.dao.SysAttrMapper">
+	<resultMap id="BaseResultMap"
+		type="com.hzzxkj.models.SysAttr">
+		<id column="id" jdbcType="VARCHAR" property="id" />
+		<result column="attr_name" jdbcType="VARCHAR"
+			property="attrName" />
+		<result column="model_id" jdbcType="VARCHAR" property="modelId" />
+		<result column="order_by" jdbcType="INTEGER" property="orderBy" />
+		<result column="del_flag" jdbcType="CHAR" property="delFlag" />
+		<result column="create_by" jdbcType="VARCHAR"
+			property="createBy" />
+		<result column="create_date" jdbcType="TIMESTAMP"
+			property="createDate" />
+		<result column="update_by" jdbcType="VARCHAR"
+			property="updateBy" />
+		<result column="update_date" jdbcType="TIMESTAMP"
+			property="updateDate" />
+		<result column="remarks" jdbcType="VARCHAR" property="remarks" />
+		<result column="reserve_int" jdbcType="INTEGER"
+			property="reserveInt" />
+		<result column="reserve_varchar" jdbcType="VARCHAR"
+			property="reserveVarchar" />
+		<result column="attr_addr" jdbcType="VARCHAR"
+			property="attrAddr" />
+		<result column="attr_len" jdbcType="INTEGER" property="attrLen" />
+		<result column="attr_english" jdbcType="VARCHAR"
+			property="attrEnglish" />
+		<result column="attr_unit" jdbcType="VARCHAR"
+			property="attrUnit" />
+		<result column="is_alert" jdbcType="CHAR" property="isAlert" />
+		<result column="alert_level" jdbcType="CHAR"
+			property="alertLevel" />
+		<result column="format_type" jdbcType="VARCHAR"
+			property="formatType" />
+		<result column="format_style" jdbcType="VARCHAR"
+			property="formatStyle" />
+		<result column="is_rrt" jdbcType="CHAR" property="isRrt" />
+		<result column="convert_type" jdbcType="VARCHAR"
+			property="convertType" />
+		<result column="is_show" jdbcType="VARCHAR" property="isShow" />
+		<result column="attr_value_max" jdbcType="NUMERIC"
+			property="attrValueMax" />
+		<result column="attr_value_min" jdbcType="NUMERIC"
+			property="attrValueMin" />
+		<result column="alert_time" jdbcType="INTEGER"
+			property="alertTime" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" prefixOverrides="and" suffix=")">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach close=")" collection="criterion.value"
+										item="listItem" open="(" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" prefixOverrides="and" suffix=")">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach close=")" collection="criterion.value"
+										item="listItem" open="(" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		id, attr_name, model_id, order_by, del_flag, create_by, create_date,
+		update_by, update_date,
+		remarks, reserve_int, reserve_varchar, attr_addr, attr_len, attr_english,
+		attr_unit,
+		is_alert, alert_level, format_type, format_style, is_rrt, convert_type,
+		is_show,
+		attr_value_max, attr_value_min, alert_time
+	</sql>
+	<select id="selectByExample"
+		parameterType="com.hzzxkj.models.SysAttrExample"
+		resultMap="BaseResultMap">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		'true' as QUERYID,
+		<include refid="Base_Column_List" />
+		from sys_attr
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from sys_attr
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 根据设备ID，通过sys_attr_group与sys_attr_config查询sys_attr -->
+	<select id="getAttrByDeviceId" parameterType="com.hzzxkj.models.SysAttr" resultMap="BaseResultMap">
+		SELECT
+			a.id as "groupId",
+			a.group_title AS "groupTitle",
+			c.id AS "id",
+			c.attr_name AS "attrName",
+			c.model_id AS "modelId",
+			c.attr_addr AS "attrAddr",
+			c.del_flag AS "delFlag",
+			c.create_by AS "createBy.id",
+			c.attr_len AS "attrLen",
+			c.create_date AS "createDate",
+			c.attr_english AS "attrEnglish",
+			c.update_by AS "updateBy.id",
+			c.attr_unit AS "attrUnit",
+			c.order_by AS "orderBy",
+			c.update_date AS "updateDate",
+			c.remarks AS "remarks",
+			c.reserve_int AS "reserveInt",
+			c.reserve_varchar AS "reserveVarchar",
+			c.is_alert AS "isAlert",
+			c.alert_level AS "aertLevel",
+			c.format_type AS "formatType",
+			c.format_style AS "formatStyle"
+		FROM sys_attr_group a
+		LEFT JOIN sys_attr_config b ON a.id = b.sys_attr_group_id
+		LEFT JOIN sys_attr c ON b.sys_attr_id = c.id
+		WHERE
+		a.del_flag = 0
+		AND c.del_flag =
+		0
+		<if test="deviceId != null and deviceId != ''">
+			AND a.device_id = #{deviceId,jdbcType=VARCHAR}
+		</if>
+		<choose>
+			<otherwise>
+				ORDER BY
+				a.sort_by ASC,
+				b.order_by ASC;
+			</otherwise>
+		</choose>
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from sys_attr
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.hzzxkj.models.SysAttr">
+		insert into sys_attr (id, attr_name, model_id,
+		order_by, del_flag, create_by,
+		create_date, update_by, update_date,
+		remarks, reserve_int, reserve_varchar,
+		attr_addr, attr_len, attr_english,
+		attr_unit, is_alert, alert_level,
+		format_type, format_style, is_rrt,
+		convert_type, is_show, attr_value_max,
+		attr_value_min, alert_time)
+		values (#{id,jdbcType=VARCHAR}, #{attrName,jdbcType=VARCHAR},
+		#{modelId,jdbcType=VARCHAR},
+		#{orderBy,jdbcType=INTEGER}, #{delFlag,jdbcType=CHAR}, #{createBy,jdbcType=VARCHAR},
+		#{createDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR},
+		#{updateDate,jdbcType=TIMESTAMP},
+		#{remarks,jdbcType=VARCHAR}, #{reserveInt,jdbcType=INTEGER}, #{reserveVarchar,jdbcType=VARCHAR},
+		#{attrAddr,jdbcType=VARCHAR}, #{attrLen,jdbcType=INTEGER},
+		#{attrEnglish,jdbcType=VARCHAR},
+		#{attrUnit,jdbcType=VARCHAR}, #{isAlert,jdbcType=CHAR}, #{alertLevel,jdbcType=CHAR},
+		#{formatType,jdbcType=VARCHAR}, #{formatStyle,jdbcType=VARCHAR},
+		#{isRrt,jdbcType=CHAR},
+		#{convertType,jdbcType=VARCHAR}, #{isShow,jdbcType=VARCHAR}, #{attrValueMax,jdbcType=NUMERIC},
+		#{attrValueMin,jdbcType=NUMERIC}, #{alertTime,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.hzzxkj.models.SysAttr">
+		insert into sys_attr
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="attrName != null">
+				attr_name,
+			</if>
+			<if test="modelId != null">
+				model_id,
+			</if>
+			<if test="orderBy != null">
+				order_by,
+			</if>
+			<if test="delFlag != null">
+				del_flag,
+			</if>
+			<if test="createBy != null">
+				create_by,
+			</if>
+			<if test="createDate != null">
+				create_date,
+			</if>
+			<if test="updateBy != null">
+				update_by,
+			</if>
+			<if test="updateDate != null">
+				update_date,
+			</if>
+			<if test="remarks != null">
+				remarks,
+			</if>
+			<if test="reserveInt != null">
+				reserve_int,
+			</if>
+			<if test="reserveVarchar != null">
+				reserve_varchar,
+			</if>
+			<if test="attrAddr != null">
+				attr_addr,
+			</if>
+			<if test="attrLen != null">
+				attr_len,
+			</if>
+			<if test="attrEnglish != null">
+				attr_english,
+			</if>
+			<if test="attrUnit != null">
+				attr_unit,
+			</if>
+			<if test="isAlert != null">
+				is_alert,
+			</if>
+			<if test="alertLevel != null">
+				alert_level,
+			</if>
+			<if test="formatType != null">
+				format_type,
+			</if>
+			<if test="formatStyle != null">
+				format_style,
+			</if>
+			<if test="isRrt != null">
+				is_rrt,
+			</if>
+			<if test="convertType != null">
+				convert_type,
+			</if>
+			<if test="isShow != null">
+				is_show,
+			</if>
+			<if test="attrValueMax != null">
+				attr_value_max,
+			</if>
+			<if test="attrValueMin != null">
+				attr_value_min,
+			</if>
+			<if test="alertTime != null">
+				alert_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="attrName != null">
+				#{attrName,jdbcType=VARCHAR},
+			</if>
+			<if test="modelId != null">
+				#{modelId,jdbcType=VARCHAR},
+			</if>
+			<if test="orderBy != null">
+				#{orderBy,jdbcType=INTEGER},
+			</if>
+			<if test="delFlag != null">
+				#{delFlag,jdbcType=CHAR},
+			</if>
+			<if test="createBy != null">
+				#{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="createDate != null">
+				#{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateBy != null">
+				#{updateBy,jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null">
+				#{updateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="remarks != null">
+				#{remarks,jdbcType=VARCHAR},
+			</if>
+			<if test="reserveInt != null">
+				#{reserveInt,jdbcType=INTEGER},
+			</if>
+			<if test="reserveVarchar != null">
+				#{reserveVarchar,jdbcType=VARCHAR},
+			</if>
+			<if test="attrAddr != null">
+				#{attrAddr,jdbcType=VARCHAR},
+			</if>
+			<if test="attrLen != null">
+				#{attrLen,jdbcType=INTEGER},
+			</if>
+			<if test="attrEnglish != null">
+				#{attrEnglish,jdbcType=VARCHAR},
+			</if>
+			<if test="attrUnit != null">
+				#{attrUnit,jdbcType=VARCHAR},
+			</if>
+			<if test="isAlert != null">
+				#{isAlert,jdbcType=CHAR},
+			</if>
+			<if test="alertLevel != null">
+				#{alertLevel,jdbcType=CHAR},
+			</if>
+			<if test="formatType != null">
+				#{formatType,jdbcType=VARCHAR},
+			</if>
+			<if test="formatStyle != null">
+				#{formatStyle,jdbcType=VARCHAR},
+			</if>
+			<if test="isRrt != null">
+				#{isRrt,jdbcType=CHAR},
+			</if>
+			<if test="convertType != null">
+				#{convertType,jdbcType=VARCHAR},
+			</if>
+			<if test="isShow != null">
+				#{isShow,jdbcType=VARCHAR},
+			</if>
+			<if test="attrValueMax != null">
+				#{attrValueMax,jdbcType=NUMERIC},
+			</if>
+			<if test="attrValueMin != null">
+				#{attrValueMin,jdbcType=NUMERIC},
+			</if>
+			<if test="alertTime != null">
+				#{alertTime,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample"
+		parameterType="com.hzzxkj.models.SysAttrExample"
+		resultType="java.lang.Long">
+		select count(*) from sys_attr
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update sys_attr
+		<set>
+			<if test="record.id != null">
+				id = #{record.id,jdbcType=VARCHAR},
+			</if>
+			<if test="record.attrName != null">
+				attr_name = #{record.attrName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.modelId != null">
+				model_id = #{record.modelId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.orderBy != null">
+				order_by = #{record.orderBy,jdbcType=INTEGER},
+			</if>
+			<if test="record.delFlag != null">
+				del_flag = #{record.delFlag,jdbcType=CHAR},
+			</if>
+			<if test="record.createBy != null">
+				create_by = #{record.createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="record.createDate != null">
+				create_date = #{record.createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.updateBy != null">
+				update_by = #{record.updateBy,jdbcType=VARCHAR},
+			</if>
+			<if test="record.updateDate != null">
+				update_date = #{record.updateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.remarks != null">
+				remarks = #{record.remarks,jdbcType=VARCHAR},
+			</if>
+			<if test="record.reserveInt != null">
+				reserve_int = #{record.reserveInt,jdbcType=INTEGER},
+			</if>
+			<if test="record.reserveVarchar != null">
+				reserve_varchar = #{record.reserveVarchar,jdbcType=VARCHAR},
+			</if>
+			<if test="record.attrAddr != null">
+				attr_addr = #{record.attrAddr,jdbcType=VARCHAR},
+			</if>
+			<if test="record.attrLen != null">
+				attr_len = #{record.attrLen,jdbcType=INTEGER},
+			</if>
+			<if test="record.attrEnglish != null">
+				attr_english = #{record.attrEnglish,jdbcType=VARCHAR},
+			</if>
+			<if test="record.attrUnit != null">
+				attr_unit = #{record.attrUnit,jdbcType=VARCHAR},
+			</if>
+			<if test="record.isAlert != null">
+				is_alert = #{record.isAlert,jdbcType=CHAR},
+			</if>
+			<if test="record.alertLevel != null">
+				alert_level = #{record.alertLevel,jdbcType=CHAR},
+			</if>
+			<if test="record.formatType != null">
+				format_type = #{record.formatType,jdbcType=VARCHAR},
+			</if>
+			<if test="record.formatStyle != null">
+				format_style = #{record.formatStyle,jdbcType=VARCHAR},
+			</if>
+			<if test="record.isRrt != null">
+				is_rrt = #{record.isRrt,jdbcType=CHAR},
+			</if>
+			<if test="record.convertType != null">
+				convert_type = #{record.convertType,jdbcType=VARCHAR},
+			</if>
+			<if test="record.isShow != null">
+				is_show = #{record.isShow,jdbcType=VARCHAR},
+			</if>
+			<if test="record.attrValueMax != null">
+				attr_value_max = #{record.attrValueMax,jdbcType=NUMERIC},
+			</if>
+			<if test="record.attrValueMin != null">
+				attr_value_min = #{record.attrValueMin,jdbcType=NUMERIC},
+			</if>
+			<if test="record.alertTime != null">
+				alert_time = #{record.alertTime,jdbcType=INTEGER},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update sys_attr
+		set id = #{record.id,jdbcType=VARCHAR},
+		attr_name = #{record.attrName,jdbcType=VARCHAR},
+		model_id = #{record.modelId,jdbcType=VARCHAR},
+		order_by = #{record.orderBy,jdbcType=INTEGER},
+		del_flag = #{record.delFlag,jdbcType=CHAR},
+		create_by = #{record.createBy,jdbcType=VARCHAR},
+		create_date = #{record.createDate,jdbcType=TIMESTAMP},
+		update_by = #{record.updateBy,jdbcType=VARCHAR},
+		update_date = #{record.updateDate,jdbcType=TIMESTAMP},
+		remarks = #{record.remarks,jdbcType=VARCHAR},
+		reserve_int = #{record.reserveInt,jdbcType=INTEGER},
+		reserve_varchar = #{record.reserveVarchar,jdbcType=VARCHAR},
+		attr_addr = #{record.attrAddr,jdbcType=VARCHAR},
+		attr_len = #{record.attrLen,jdbcType=INTEGER},
+		attr_english = #{record.attrEnglish,jdbcType=VARCHAR},
+		attr_unit = #{record.attrUnit,jdbcType=VARCHAR},
+		is_alert = #{record.isAlert,jdbcType=CHAR},
+		alert_level = #{record.alertLevel,jdbcType=CHAR},
+		format_type = #{record.formatType,jdbcType=VARCHAR},
+		format_style = #{record.formatStyle,jdbcType=VARCHAR},
+		is_rrt = #{record.isRrt,jdbcType=CHAR},
+		convert_type = #{record.convertType,jdbcType=VARCHAR},
+		is_show = #{record.isShow,jdbcType=VARCHAR},
+		attr_value_max = #{record.attrValueMax,jdbcType=NUMERIC},
+		attr_value_min = #{record.attrValueMin,jdbcType=NUMERIC},
+		alert_time = #{record.alertTime,jdbcType=INTEGER}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.hzzxkj.models.SysAttr">
+		update sys_attr
+		<set>
+			<if test="attrName != null">
+				attr_name = #{attrName,jdbcType=VARCHAR},
+			</if>
+			<if test="modelId != null">
+				model_id = #{modelId,jdbcType=VARCHAR},
+			</if>
+			<if test="orderBy != null">
+				order_by = #{orderBy,jdbcType=INTEGER},
+			</if>
+			<if test="delFlag != null">
+				del_flag = #{delFlag,jdbcType=CHAR},
+			</if>
+			<if test="createBy != null">
+				create_by = #{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="createDate != null">
+				create_date = #{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateBy != null">
+				update_by = #{updateBy,jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null">
+				update_date = #{updateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="remarks != null">
+				remarks = #{remarks,jdbcType=VARCHAR},
+			</if>
+			<if test="reserveInt != null">
+				reserve_int = #{reserveInt,jdbcType=INTEGER},
+			</if>
+			<if test="reserveVarchar != null">
+				reserve_varchar = #{reserveVarchar,jdbcType=VARCHAR},
+			</if>
+			<if test="attrAddr != null">
+				attr_addr = #{attrAddr,jdbcType=VARCHAR},
+			</if>
+			<if test="attrLen != null">
+				attr_len = #{attrLen,jdbcType=INTEGER},
+			</if>
+			<if test="attrEnglish != null">
+				attr_english = #{attrEnglish,jdbcType=VARCHAR},
+			</if>
+			<if test="attrUnit != null">
+				attr_unit = #{attrUnit,jdbcType=VARCHAR},
+			</if>
+			<if test="isAlert != null">
+				is_alert = #{isAlert,jdbcType=CHAR},
+			</if>
+			<if test="alertLevel != null">
+				alert_level = #{alertLevel,jdbcType=CHAR},
+			</if>
+			<if test="formatType != null">
+				format_type = #{formatType,jdbcType=VARCHAR},
+			</if>
+			<if test="formatStyle != null">
+				format_style = #{formatStyle,jdbcType=VARCHAR},
+			</if>
+			<if test="isRrt != null">
+				is_rrt = #{isRrt,jdbcType=CHAR},
+			</if>
+			<if test="convertType != null">
+				convert_type = #{convertType,jdbcType=VARCHAR},
+			</if>
+			<if test="isShow != null">
+				is_show = #{isShow,jdbcType=VARCHAR},
+			</if>
+			<if test="attrValueMax != null">
+				attr_value_max = #{attrValueMax,jdbcType=NUMERIC},
+			</if>
+			<if test="attrValueMin != null">
+				attr_value_min = #{attrValueMin,jdbcType=NUMERIC},
+			</if>
+			<if test="alertTime != null">
+				alert_time = #{alertTime,jdbcType=INTEGER},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.hzzxkj.models.SysAttr">
+		update sys_attr
+		set attr_name = #{attrName,jdbcType=VARCHAR},
+		model_id = #{modelId,jdbcType=VARCHAR},
+		order_by = #{orderBy,jdbcType=INTEGER},
+		del_flag = #{delFlag,jdbcType=CHAR},
+		create_by = #{createBy,jdbcType=VARCHAR},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		update_by = #{updateBy,jdbcType=VARCHAR},
+		update_date = #{updateDate,jdbcType=TIMESTAMP},
+		remarks = #{remarks,jdbcType=VARCHAR},
+		reserve_int = #{reserveInt,jdbcType=INTEGER},
+		reserve_varchar = #{reserveVarchar,jdbcType=VARCHAR},
+		attr_addr = #{attrAddr,jdbcType=VARCHAR},
+		attr_len = #{attrLen,jdbcType=INTEGER},
+		attr_english = #{attrEnglish,jdbcType=VARCHAR},
+		attr_unit = #{attrUnit,jdbcType=VARCHAR},
+		is_alert = #{isAlert,jdbcType=CHAR},
+		alert_level = #{alertLevel,jdbcType=CHAR},
+		format_type = #{formatType,jdbcType=VARCHAR},
+		format_style = #{formatStyle,jdbcType=VARCHAR},
+		is_rrt = #{isRrt,jdbcType=CHAR},
+		convert_type = #{convertType,jdbcType=VARCHAR},
+		is_show = #{isShow,jdbcType=VARCHAR},
+		attr_value_max = #{attrValueMax,jdbcType=NUMERIC},
+		attr_value_min = #{attrValueMin,jdbcType=NUMERIC},
+		alert_time = #{alertTime,jdbcType=INTEGER}
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<select id="selectByExampleWithRowbounds"
+		parameterType="com.hzzxkj.models.SysAttrExample"
+		resultMap="BaseResultMap">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		'true' as QUERYID,
+		<include refid="Base_Column_List" />
+		from sys_attr
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+
+
+	<select id="selectBySysAttrGroupWhithDeviceID"
+			parameterType="com.hzzxkj.models.sysAttrGroup"
+			resultMap="BaseResultMap">
+		select
+		ag.ag_groupNo,ag.ag_frequency,group_concat(ac_attr_id,'') sysattrids from sys_attr_group ag,
+		sys_attr_config ac
+		where ag.ag_id=ac.ac_ag_id and
+		ag.ag_delFlag =0 and ac.ac_delFlag = 0 and
+		ag.ag_device_id=11029 group by ag.ag_groupNo
+	</select>
+</mapper>

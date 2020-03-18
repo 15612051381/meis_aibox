@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hzzxkj.dao.MdDeviceStatusMapper" >
+  <resultMap id="BaseResultMap" type="com.hzzxkj.models.MdDeviceStatus" >
+    <id column="ds_id" property="dsId" jdbcType="INTEGER" />
+    <result column="ds_office_id" property="dsOfficeId" jdbcType="INTEGER" />
+    <result column="ds_device_id" property="dsDeviceId" jdbcType="INTEGER" />
+    <result column="ds_open" property="dsOpen" jdbcType="TINYINT" />
+    <result column="ds_run" property="dsRun" jdbcType="TINYINT" />
+    <result column="ds_fault" property="dsFault" jdbcType="CHAR" />
+    <result column="ds_study" property="dsStudy" jdbcType="TINYINT" />
+    <result column="ds_power" property="dsPower" jdbcType="CHAR" />
+    <result column="ds_li" property="dsLi" jdbcType="CHAR" />
+    <result column="ds_detail" property="dsDetail" jdbcType="VARCHAR" />
+    <result column="ds_update_dt" property="dsUpdateDt" jdbcType="TIMESTAMP" />
+    <result column="ds_faultUpdate_dt" property="dsFaultupdateDt" jdbcType="TIMESTAMP" />
+    <result column="ds_delFlag" property="dsDelflag" jdbcType="CHAR" />
+    <result column="ds_createBy" property="dsCreateby" jdbcType="VARCHAR" />
+    <result column="ds_create_dt" property="dsCreateDt" jdbcType="TIMESTAMP" />
+    <result column="ds_updateBy" property="dsUpdateby" jdbcType="VARCHAR" />
+    <result column="ds_updateDate" property="dsUpdatedate" jdbcType="TIMESTAMP" />
+    <result column="ds_remarks" property="dsRemarks" jdbcType="VARCHAR" />
+    <result column="ds_reserveInt" property="dsReserveint" jdbcType="INTEGER" />
+    <result column="ds_reserveVarchar" property="dsReservevarchar" jdbcType="VARCHAR" />
+    <result column="ds_Online" property="dsOnline" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ds_id, ds_office_id, ds_device_id, ds_open, ds_run, ds_fault, ds_study, ds_power, 
+    ds_li, ds_detail, ds_update_dt, ds_faultUpdate_dt, ds_delFlag, ds_createBy, ds_create_dt, 
+    ds_updateBy, ds_updateDate, ds_remarks, ds_reserveInt, ds_reserveVarchar, ds_Online
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from md_devicestatus
+    where ds_id = #{dsId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from md_devicestatus
+    where ds_id = #{dsId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hzzxkj.models.MdDeviceStatus" >
+    insert into md_devicestatus (ds_id, ds_office_id, ds_device_id, 
+      ds_open, ds_run, ds_fault, 
+      ds_study, ds_power, ds_li, ds_detail, 
+      ds_update_dt, ds_faultUpdate_dt, ds_delFlag, 
+      ds_createBy, ds_create_dt, ds_updateBy, 
+      ds_updateDate, ds_remarks, ds_reserveInt, 
+      ds_reserveVarchar, ds_Online)
+    values (#{dsId,jdbcType=INTEGER}, #{dsOfficeId,jdbcType=INTEGER}, #{dsDeviceId,jdbcType=INTEGER}, 
+      #{dsOpen,jdbcType=TINYINT}, #{dsRun,jdbcType=TINYINT}, #{dsFault,jdbcType=CHAR}, 
+      #{dsStudy,jdbcType=TINYINT}, #{dsPower,jdbcType=CHAR}, #{dsLi,jdbcType=CHAR}, #{dsDetail,jdbcType=VARCHAR}, 
+      #{dsUpdateDt,jdbcType=TIMESTAMP}, #{dsFaultupdateDt,jdbcType=TIMESTAMP}, #{dsDelflag,jdbcType=CHAR}, 
+      #{dsCreateby,jdbcType=VARCHAR}, #{dsCreateDt,jdbcType=TIMESTAMP}, #{dsUpdateby,jdbcType=VARCHAR}, 
+      #{dsUpdatedate,jdbcType=TIMESTAMP}, #{dsRemarks,jdbcType=VARCHAR}, #{dsReserveint,jdbcType=INTEGER}, 
+      #{dsReservevarchar,jdbcType=VARCHAR}, #{dsOnline,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hzzxkj.models.MdDeviceStatus" >
+    insert into md_devicestatus
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dsId != null" >
+        ds_id,
+      </if>
+      <if test="dsOfficeId != null" >
+        ds_office_id,
+      </if>
+      <if test="dsDeviceId != null" >
+        ds_device_id,
+      </if>
+      <if test="dsOpen != null" >
+        ds_open,
+      </if>
+      <if test="dsRun != null" >
+        ds_run,
+      </if>
+      <if test="dsFault != null" >
+        ds_fault,
+      </if>
+      <if test="dsStudy != null" >
+        ds_study,
+      </if>
+      <if test="dsPower != null" >
+        ds_power,
+      </if>
+      <if test="dsLi != null" >
+        ds_li,
+      </if>
+      <if test="dsDetail != null" >
+        ds_detail,
+      </if>
+      <if test="dsUpdateDt != null" >
+        ds_update_dt,
+      </if>
+      <if test="dsFaultupdateDt != null" >
+        ds_faultUpdate_dt,
+      </if>
+      <if test="dsDelflag != null" >
+        ds_delFlag,
+      </if>
+      <if test="dsCreateby != null" >
+        ds_createBy,
+      </if>
+      <if test="dsCreateDt != null" >
+        ds_create_dt,
+      </if>
+      <if test="dsUpdateby != null" >
+        ds_updateBy,
+      </if>
+      <if test="dsUpdatedate != null" >
+        ds_updateDate,
+      </if>
+      <if test="dsRemarks != null" >
+        ds_remarks,
+      </if>
+      <if test="dsReserveint != null" >
+        ds_reserveInt,
+      </if>
+      <if test="dsReservevarchar != null" >
+        ds_reserveVarchar,
+      </if>
+      <if test="dsOnline != null" >
+        ds_Online,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dsId != null" >
+        #{dsId,jdbcType=INTEGER},
+      </if>
+      <if test="dsOfficeId != null" >
+        #{dsOfficeId,jdbcType=INTEGER},
+      </if>
+      <if test="dsDeviceId != null" >
+        #{dsDeviceId,jdbcType=INTEGER},
+      </if>
+      <if test="dsOpen != null" >
+        #{dsOpen,jdbcType=TINYINT},
+      </if>
+      <if test="dsRun != null" >
+        #{dsRun,jdbcType=TINYINT},
+      </if>
+      <if test="dsFault != null" >
+        #{dsFault,jdbcType=CHAR},
+      </if>
+      <if test="dsStudy != null" >
+        #{dsStudy,jdbcType=TINYINT},
+      </if>
+      <if test="dsPower != null" >
+        #{dsPower,jdbcType=CHAR},
+      </if>
+      <if test="dsLi != null" >
+        #{dsLi,jdbcType=CHAR},
+      </if>
+      <if test="dsDetail != null" >
+        #{dsDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="dsUpdateDt != null" >
+        #{dsUpdateDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dsFaultupdateDt != null" >
+        #{dsFaultupdateDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dsDelflag != null" >
+        #{dsDelflag,jdbcType=CHAR},
+      </if>
+      <if test="dsCreateby != null" >
+        #{dsCreateby,jdbcType=VARCHAR},
+      </if>
+      <if test="dsCreateDt != null" >
+        #{dsCreateDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dsUpdateby != null" >
+        #{dsUpdateby,jdbcType=VARCHAR},
+      </if>
+      <if test="dsUpdatedate != null" >
+        #{dsUpdatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dsRemarks != null" >
+        #{dsRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="dsReserveint != null" >
+        #{dsReserveint,jdbcType=INTEGER},
+      </if>
+      <if test="dsReservevarchar != null" >
+        #{dsReservevarchar,jdbcType=VARCHAR},
+      </if>
+      <if test="dsOnline != null" >
+        #{dsOnline,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hzzxkj.models.MdDeviceStatus" >
+    update md_devicestatus
+    <set >
+      <if test="dsOfficeId != null" >
+        ds_office_id = #{dsOfficeId,jdbcType=INTEGER},
+      </if>
+      <if test="dsDeviceId != null" >
+        ds_device_id = #{dsDeviceId,jdbcType=INTEGER},
+      </if>
+      <if test="dsOpen != null" >
+        ds_open = #{dsOpen,jdbcType=TINYINT},
+      </if>
+      <if test="dsRun != null" >
+        ds_run = #{dsRun,jdbcType=TINYINT},
+      </if>
+      <if test="dsFault != null" >
+        ds_fault = #{dsFault,jdbcType=CHAR},
+      </if>
+      <if test="dsStudy != null" >
+        ds_study = #{dsStudy,jdbcType=TINYINT},
+      </if>
+      <if test="dsPower != null" >
+        ds_power = #{dsPower,jdbcType=CHAR},
+      </if>
+      <if test="dsLi != null" >
+        ds_li = #{dsLi,jdbcType=CHAR},
+      </if>
+      <if test="dsDetail != null" >
+        ds_detail = #{dsDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="dsUpdateDt != null" >
+        ds_update_dt = #{dsUpdateDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dsFaultupdateDt != null" >
+        ds_faultUpdate_dt = #{dsFaultupdateDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dsDelflag != null" >
+        ds_delFlag = #{dsDelflag,jdbcType=CHAR},
+      </if>
+      <if test="dsCreateby != null" >
+        ds_createBy = #{dsCreateby,jdbcType=VARCHAR},
+      </if>
+      <if test="dsCreateDt != null" >
+        ds_create_dt = #{dsCreateDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dsUpdateby != null" >
+        ds_updateBy = #{dsUpdateby,jdbcType=VARCHAR},
+      </if>
+      <if test="dsUpdatedate != null" >
+        ds_updateDate = #{dsUpdatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dsRemarks != null" >
+        ds_remarks = #{dsRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="dsReserveint != null" >
+        ds_reserveInt = #{dsReserveint,jdbcType=INTEGER},
+      </if>
+      <if test="dsReservevarchar != null" >
+        ds_reserveVarchar = #{dsReservevarchar,jdbcType=VARCHAR},
+      </if>
+      <if test="dsOnline != null" >
+        ds_Online = #{dsOnline,jdbcType=TINYINT},
+      </if>
+    </set>
+    where ds_id = #{dsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hzzxkj.models.MdDeviceStatus" >
+    update md_devicestatus
+    set ds_office_id = #{dsOfficeId,jdbcType=INTEGER},
+      ds_device_id = #{dsDeviceId,jdbcType=INTEGER},
+      ds_open = #{dsOpen,jdbcType=TINYINT},
+      ds_run = #{dsRun,jdbcType=TINYINT},
+      ds_fault = #{dsFault,jdbcType=CHAR},
+      ds_study = #{dsStudy,jdbcType=TINYINT},
+      ds_power = #{dsPower,jdbcType=CHAR},
+      ds_li = #{dsLi,jdbcType=CHAR},
+      ds_detail = #{dsDetail,jdbcType=VARCHAR},
+      ds_update_dt = #{dsUpdateDt,jdbcType=TIMESTAMP},
+      ds_faultUpdate_dt = #{dsFaultupdateDt,jdbcType=TIMESTAMP},
+      ds_delFlag = #{dsDelflag,jdbcType=CHAR},
+      ds_createBy = #{dsCreateby,jdbcType=VARCHAR},
+      ds_create_dt = #{dsCreateDt,jdbcType=TIMESTAMP},
+      ds_updateBy = #{dsUpdateby,jdbcType=VARCHAR},
+      ds_updateDate = #{dsUpdatedate,jdbcType=TIMESTAMP},
+      ds_remarks = #{dsRemarks,jdbcType=VARCHAR},
+      ds_reserveInt = #{dsReserveint,jdbcType=INTEGER},
+      ds_reserveVarchar = #{dsReservevarchar,jdbcType=VARCHAR},
+      ds_Online = #{dsOnline,jdbcType=TINYINT}
+    where ds_id = #{dsId,jdbcType=INTEGER}
+  </update>
+</mapper>

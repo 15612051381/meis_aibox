@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hzzxkj.dao.ProtocolAnalysisRulerMapper">
+  <resultMap id="BaseResultMap" type="com.hzzxkj.models.ProtocolAnalysisRuler">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="protocol_type" jdbcType="NVARCHAR" property="protocolType" />
+    <result column="protocol_version" jdbcType="INTEGER" property="protocolVersion" />
+    <result column="segmentId" jdbcType="INTEGER" property="segmentid" />
+    <result column="segment_length" jdbcType="INTEGER" property="segmentLength" />
+    <result column="segment_index" jdbcType="INTEGER" property="segmentIndex" />
+    <result column="segment_type" jdbcType="INTEGER" property="segmentType" />
+    <result column="segment_name_en" jdbcType="NVARCHAR" property="segmentNameEn" />
+    <result column="segment_name_ch" jdbcType="NVARCHAR" property="segmentNameCh" />
+    <result column="sys_attr_id" jdbcType="NVARCHAR" property="sysAttrId" />
+    <result column="sys_model_id" jdbcType="NVARCHAR" property="sysModelId" />
+    <result column="segment_bz" jdbcType="NVARCHAR" property="segmentBz" />
+    <result column="bz1" jdbcType="INTEGER" property="bz1" />
+    <result column="bz2" jdbcType="NVARCHAR" property="bz2" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, protocol_type, protocol_version, segmentId, segment_length, segment_index, segment_type, 
+    segment_name_en, segment_name_ch, sys_attr_id, sys_model_id, segment_bz, bz1, bz2
+  </sql>
+  <select id="selectByExample" parameterType="com.hzzxkj.models.ProtocolAnalysisRulerExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from protocol_analysis_ruler
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from protocol_analysis_ruler
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from protocol_analysis_ruler
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.hzzxkj.models.ProtocolAnalysisRuler">
+    insert into protocol_analysis_ruler (id, protocol_type, protocol_version, 
+      segmentId, segment_length, segment_index, 
+      segment_type, segment_name_en, segment_name_ch, 
+      sys_attr_id, sys_model_id, segment_bz, 
+      bz1, bz2)
+    values (#{id,jdbcType=BIGINT}, #{protocolType,jdbcType=NVARCHAR}, #{protocolVersion,jdbcType=INTEGER}, 
+      #{segmentid,jdbcType=INTEGER}, #{segmentLength,jdbcType=INTEGER}, #{segmentIndex,jdbcType=INTEGER}, 
+      #{segmentType,jdbcType=INTEGER}, #{segmentNameEn,jdbcType=NVARCHAR}, #{segmentNameCh,jdbcType=NVARCHAR}, 
+      #{sysAttrId,jdbcType=NVARCHAR}, #{sysModelId,jdbcType=NVARCHAR}, #{segmentBz,jdbcType=NVARCHAR}, 
+      #{bz1,jdbcType=INTEGER}, #{bz2,jdbcType=NVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hzzxkj.models.ProtocolAnalysisRuler">
+    insert into protocol_analysis_ruler
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="protocolType != null">
+        protocol_type,
+      </if>
+      <if test="protocolVersion != null">
+        protocol_version,
+      </if>
+      <if test="segmentid != null">
+        segmentId,
+      </if>
+      <if test="segmentLength != null">
+        segment_length,
+      </if>
+      <if test="segmentIndex != null">
+        segment_index,
+      </if>
+      <if test="segmentType != null">
+        segment_type,
+      </if>
+      <if test="segmentNameEn != null">
+        segment_name_en,
+      </if>
+      <if test="segmentNameCh != null">
+        segment_name_ch,
+      </if>
+      <if test="sysAttrId != null">
+        sys_attr_id,
+      </if>
+      <if test="sysModelId != null">
+        sys_model_id,
+      </if>
+      <if test="segmentBz != null">
+        segment_bz,
+      </if>
+      <if test="bz1 != null">
+        bz1,
+      </if>
+      <if test="bz2 != null">
+        bz2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="protocolType != null">
+        #{protocolType,jdbcType=NVARCHAR},
+      </if>
+      <if test="protocolVersion != null">
+        #{protocolVersion,jdbcType=INTEGER},
+      </if>
+      <if test="segmentid != null">
+        #{segmentid,jdbcType=INTEGER},
+      </if>
+      <if test="segmentLength != null">
+        #{segmentLength,jdbcType=INTEGER},
+      </if>
+      <if test="segmentIndex != null">
+        #{segmentIndex,jdbcType=INTEGER},
+      </if>
+      <if test="segmentType != null">
+        #{segmentType,jdbcType=INTEGER},
+      </if>
+      <if test="segmentNameEn != null">
+        #{segmentNameEn,jdbcType=NVARCHAR},
+      </if>
+      <if test="segmentNameCh != null">
+        #{segmentNameCh,jdbcType=NVARCHAR},
+      </if>
+      <if test="sysAttrId != null">
+        #{sysAttrId,jdbcType=NVARCHAR},
+      </if>
+      <if test="sysModelId != null">
+        #{sysModelId,jdbcType=NVARCHAR},
+      </if>
+      <if test="segmentBz != null">
+        #{segmentBz,jdbcType=NVARCHAR},
+      </if>
+      <if test="bz1 != null">
+        #{bz1,jdbcType=INTEGER},
+      </if>
+      <if test="bz2 != null">
+        #{bz2,jdbcType=NVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hzzxkj.models.ProtocolAnalysisRulerExample" resultType="java.lang.Long">
+    select count(*) from protocol_analysis_ruler
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update protocol_analysis_ruler
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.protocolType != null">
+        protocol_type = #{record.protocolType,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.protocolVersion != null">
+        protocol_version = #{record.protocolVersion,jdbcType=INTEGER},
+      </if>
+      <if test="record.segmentid != null">
+        segmentId = #{record.segmentid,jdbcType=INTEGER},
+      </if>
+      <if test="record.segmentLength != null">
+        segment_length = #{record.segmentLength,jdbcType=INTEGER},
+      </if>
+      <if test="record.segmentIndex != null">
+        segment_index = #{record.segmentIndex,jdbcType=INTEGER},
+      </if>
+      <if test="record.segmentType != null">
+        segment_type = #{record.segmentType,jdbcType=INTEGER},
+      </if>
+      <if test="record.segmentNameEn != null">
+        segment_name_en = #{record.segmentNameEn,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.segmentNameCh != null">
+        segment_name_ch = #{record.segmentNameCh,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.sysAttrId != null">
+        sys_attr_id = #{record.sysAttrId,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.sysModelId != null">
+        sys_model_id = #{record.sysModelId,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.segmentBz != null">
+        segment_bz = #{record.segmentBz,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.bz1 != null">
+        bz1 = #{record.bz1,jdbcType=INTEGER},
+      </if>
+      <if test="record.bz2 != null">
+        bz2 = #{record.bz2,jdbcType=NVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update protocol_analysis_ruler
+    set id = #{record.id,jdbcType=BIGINT},
+      protocol_type = #{record.protocolType,jdbcType=NVARCHAR},
+      protocol_version = #{record.protocolVersion,jdbcType=INTEGER},
+      segmentId = #{record.segmentid,jdbcType=INTEGER},
+      segment_length = #{record.segmentLength,jdbcType=INTEGER},
+      segment_index = #{record.segmentIndex,jdbcType=INTEGER},
+      segment_type = #{record.segmentType,jdbcType=INTEGER},
+      segment_name_en = #{record.segmentNameEn,jdbcType=NVARCHAR},
+      segment_name_ch = #{record.segmentNameCh,jdbcType=NVARCHAR},
+      sys_attr_id = #{record.sysAttrId,jdbcType=NVARCHAR},
+      sys_model_id = #{record.sysModelId,jdbcType=NVARCHAR},
+      segment_bz = #{record.segmentBz,jdbcType=NVARCHAR},
+      bz1 = #{record.bz1,jdbcType=INTEGER},
+      bz2 = #{record.bz2,jdbcType=NVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hzzxkj.models.ProtocolAnalysisRuler">
+    update protocol_analysis_ruler
+    <set>
+      <if test="protocolType != null">
+        protocol_type = #{protocolType,jdbcType=NVARCHAR},
+      </if>
+      <if test="protocolVersion != null">
+        protocol_version = #{protocolVersion,jdbcType=INTEGER},
+      </if>
+      <if test="segmentid != null">
+        segmentId = #{segmentid,jdbcType=INTEGER},
+      </if>
+      <if test="segmentLength != null">
+        segment_length = #{segmentLength,jdbcType=INTEGER},
+      </if>
+      <if test="segmentIndex != null">
+        segment_index = #{segmentIndex,jdbcType=INTEGER},
+      </if>
+      <if test="segmentType != null">
+        segment_type = #{segmentType,jdbcType=INTEGER},
+      </if>
+      <if test="segmentNameEn != null">
+        segment_name_en = #{segmentNameEn,jdbcType=NVARCHAR},
+      </if>
+      <if test="segmentNameCh != null">
+        segment_name_ch = #{segmentNameCh,jdbcType=NVARCHAR},
+      </if>
+      <if test="sysAttrId != null">
+        sys_attr_id = #{sysAttrId,jdbcType=NVARCHAR},
+      </if>
+      <if test="sysModelId != null">
+        sys_model_id = #{sysModelId,jdbcType=NVARCHAR},
+      </if>
+      <if test="segmentBz != null">
+        segment_bz = #{segmentBz,jdbcType=NVARCHAR},
+      </if>
+      <if test="bz1 != null">
+        bz1 = #{bz1,jdbcType=INTEGER},
+      </if>
+      <if test="bz2 != null">
+        bz2 = #{bz2,jdbcType=NVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hzzxkj.models.ProtocolAnalysisRuler">
+    update protocol_analysis_ruler
+    set protocol_type = #{protocolType,jdbcType=NVARCHAR},
+      protocol_version = #{protocolVersion,jdbcType=INTEGER},
+      segmentId = #{segmentid,jdbcType=INTEGER},
+      segment_length = #{segmentLength,jdbcType=INTEGER},
+      segment_index = #{segmentIndex,jdbcType=INTEGER},
+      segment_type = #{segmentType,jdbcType=INTEGER},
+      segment_name_en = #{segmentNameEn,jdbcType=NVARCHAR},
+      segment_name_ch = #{segmentNameCh,jdbcType=NVARCHAR},
+      sys_attr_id = #{sysAttrId,jdbcType=NVARCHAR},
+      sys_model_id = #{sysModelId,jdbcType=NVARCHAR},
+      segment_bz = #{segmentBz,jdbcType=NVARCHAR},
+      bz1 = #{bz1,jdbcType=INTEGER},
+      bz2 = #{bz2,jdbcType=NVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByExampleWithRowbounds" parameterType="com.hzzxkj.models.ProtocolAnalysisRulerExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from protocol_analysis_ruler
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+    <select id="selectByTypeAndVersion" parameterType="com.hzzxkj.models.ProtocolAnalysisRuler" resultMap="BaseResultMap">
+    select segment_index, 
+    cast(segment_length as nvarchar(50))+','+cast(segment_type as nvarchar(50))+','+sys_attr_id as len_type
+    from 
+    protocol_analysis_ruler
+    where protocol_type = #{protocolType,jdbcType=NVARCHAR}
+    and protocol_version = #{protocolVersion,jdbcType=INTEGER}
+    order by segment_index
+  </select>
+</mapper>
